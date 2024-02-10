@@ -24,7 +24,7 @@ function Header() {
 
     },
     {
-      name:"All Posts",
+      name:"My All Posts",
       slug:"/all-posts",
       active:authStatus
     },
