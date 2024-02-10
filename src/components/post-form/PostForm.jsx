@@ -1,4 +1,4 @@
-import React,{useCallback} from 'react'
+import React,{useCallback, useState} from 'react'
 import { useForm } from 'react-hook-form'
 import {Button,Input,Select,RTE} from '../index'
 import appWriteService from '../../appwrite/config'
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 function PostForm({post}) {
+    const [error,serError] = useState("");
     const {register,handleSubmit,watch,setValue,getValues,control} = useForm({
         defaultValues:{
             title:post?.title||'',
@@ -41,8 +42,17 @@ function PostForm({post}) {
                     ...data,
                     userId:userData.$id
 
-                })
-                navigate(`/post/${dbPost.$id}`)
+                }
+                
+                
+                )
+                if (dbPost) {
+                    navigate(`/post/${dbPost.$id}`)
+                }else{
+                    await appWriteService.deleteFile(file.$id);
+                    serError("Some Network Error")
+                }
+                
                 
             }
         }
@@ -76,6 +86,7 @@ function PostForm({post}) {
     },[watch,slugTransform,setValue])
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+        {error&&<p className=' text-red-600'>{error}</p>}
     <div className="w-2/3 px-2">
         <Input
             label="Title :"
