@@ -11,7 +11,7 @@ function LogoutButton() {
       dispatch(logout())
     })
     .finally(()=>{
-      window.location.reload();
+      window.location.replace("https://bloggerkrishna.netlify.app/");
     })
   }
 
