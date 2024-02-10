@@ -6,6 +6,7 @@ import './App.css'
 import authService from './appwrite/auth';
 import { login, logout } from './store/features/authSlice';
 import { Footer, Header } from './components';
+import { Outlet } from 'react-router-dom';
 
 function App() {
 const [loading,setLoading] = useState(true);
@@ -28,11 +29,11 @@ useEffect(()=>{
 
 
 return !loading ? (
-  <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+  <div className='min-h-screen flex flex-wrap content-between bg-gray-50'>
     <div className="w-full block">
     <Header/>
     <main>
-   {/* <Outlet/> */}
+   <Outlet/>
     </main>
     <Footer/>
     </div>
