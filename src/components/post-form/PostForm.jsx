@@ -14,6 +14,7 @@ function PostForm({post}) {
             content:post?.content||'',
             status:post?.status||'active',
 
+
         }
     });
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ function PostForm({post}) {
             }
             const dbPost = await appWriteService.updatePost(post.$id,{
                 ...data,
-                featuredImage:file?file.$id:post.$id
+                featuredImage:file?file.$id:post.featuredImage
             })
             if(dbPost){
                 navigate(`/post/${dbPost.$id}`)
