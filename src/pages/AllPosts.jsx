@@ -2,15 +2,20 @@ import React, {useState, useEffect} from 'react'
 import { Container, PostCard } from '../components'
 import appwriteService from "../appwrite/config";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
+    const userData = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
         appwriteService.getPosts().then((posts) => {
             if (posts) {
-                setPosts(posts.documents)
+                const data  = posts.documents.filter((post)=>post.userId===userData.$id)
+                setPosts(data)
+                
             }
         })
     }, [])
